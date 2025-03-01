@@ -13,12 +13,12 @@ If they don't help then please ask on the [User Group](https://groups.google.com
 ## Found an Issue?
 If you have found a bug then raise an issue on the zaproxy repo: https://github.com/zaproxy/zaproxy/issues
 
-Its worth checking to see if its already been reported, and including as much information as you can to help us diagnose your problem.
+It's worth checking to see if it's already been reported, and including as much information as you can to help us diagnose your problem.
 
 This FAQ explains some useful steps you can follow: https://www.zaproxy.org/faq/somethings-not-working-what-should-i-do/
 
 ## Found a Vulnerability?
-If you think you have found a vulnerability in ZAP then please report it via our [bug bounty program](https://bugcrowd.com/owaspzap).
+If you think you have found a vulnerability in ZAP then please report it via [email](mailto:zaproxy-admin@googlegroups.com).
 
 We are always very grateful to researchers who report vulnerabilities responsibly and will be very happy to give credit for the valuable assistance they provide.
 

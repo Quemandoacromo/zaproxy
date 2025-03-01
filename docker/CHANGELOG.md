@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to the docker containers will be documented in this file.
 
+### 2025-02-20
+- Added jq to all images except bare.
+
+### 2025-01-16
+- Stop publishing images under the `softwaresecurityproject` Docker Hub org, superseded by `zaproxy`, which should be used instead.
+
+### 2024-01-10
+- Change stable image to use `debian:bookworm-slim` instead of `bullseye-slim`, it will now start using Java 17.
+- Change bare image to use `eclipse-temurin:17-jre-alpine` instead of `11-jre-alpine`.
+
+### 2024-12-10
+- Updated to use Webswing 24.2.2.
+
 ### 2024-09-13
 - Update the zap.sh script to use the cgroup memory limit when the IS_CONTAINERIZED environment variable is set to "true".
 
