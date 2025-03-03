@@ -68,12 +68,14 @@ val bundledAddOns: Any = provider {
     }
 }
 
+fun startScriptTokenMap(zapJar: String) = mapOf("zapJar" to zapJar, "javaVersion" to (extra["zapJavaVersion"] as JavaVersion).majorVersion)
+
 val distFiles by tasks.registering(Sync::class) {
     destinationDir = layout.buildDirectory.dir("distFiles").get().asFile
     from(jarWithBom)
     from(distDir) {
         filesMatching(listOf("zap.bat", "zap.sh")) {
-            filter<ReplaceTokens>("tokens" to mapOf("zapJar" to jarWithBom.get().archiveFileName.get()))
+            filter<ReplaceTokens>("tokens" to startScriptTokenMap(jarWithBom.get().archiveFileName.get()))
         }
         exclude("README.weekly")
         exclude("plugin/*.zap")
@@ -186,15 +188,15 @@ tasks.register<Tar>("distLinux") {
 }
 
 listOf(
-    MacArch("", "", "", "x64", "9855769dddc3f3b5a1fb530ce953025b1f7b3fac861628849b417676b1310b1f"),
-    MacArch("Arm64", "_aarch64", " (ARM64)", "aarch64", "8ecc59f0bda845717cecbc6025c4c7fcc26d6ffe48824b8f7a5db024216c5fb4")
+    MacArch("", "", "", "x64", "bf9faf4540001a251e6bfb52b99c7ec5b1f36d3ebe94e104f61a30f173ba8c78"),
+    MacArch("Arm64", "_aarch64", " (ARM64)", "aarch64", "a886b8f2a50eca2e59b45ea59f5a2e8e9d27ff5b5b3b069443a70cda7f27c907")
 ).forEach { it ->
 
     val volumeName = "ZAP"
     val appName = "$volumeName.app"
     val macOsJreDir = layout.buildDirectory.dir("macOsJre${it.suffix}").get().asFile
     val macOsJreUnpackDir = File(macOsJreDir, "unpacked")
-    val macOsJreVersion = "11.0.23+9"
+    val macOsJreVersion = "17.0.13+11"
     val macOsJreFile = File(macOsJreDir, "jdk$macOsJreVersion-jre.tar.gz")
 
     val downloadMacOsJre = tasks.register<Download>("downloadMacOsJre${it.suffix}") {
@@ -315,7 +317,7 @@ val distDaily by tasks.registering(Zip::class) {
         into(rootDir)
         include(startScripts)
         filesMatching(startScripts) {
-            filter<ReplaceTokens>("tokens" to mapOf("zapJar" to jarDaily.get().archiveFileName.get()))
+            filter<ReplaceTokens>("tokens" to startScriptTokenMap(jarDaily.get().archiveFileName.get()))
         }
     }
     from(File(distDir, "plugin")) {
@@ -374,7 +376,7 @@ val prepareDistWeekly by tasks.registering(Sync::class) {
     from(distDir) {
         include(startScripts)
         filesMatching(startScripts) {
-            filter<ReplaceTokens>("tokens" to mapOf("zapJar" to jarDaily.get().archiveFileName.get()))
+            filter<ReplaceTokens>("tokens" to startScriptTokenMap(jarDaily.get().archiveFileName.get()))
         }
     }
     from(weeklyAddOnsDir) {
